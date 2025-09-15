@@ -56,6 +56,15 @@ public abstract class Creature {
     }
 
     public void attack(Creature target, Random rng) {
+        if (!isAlive()) {
+            System.out.println(name + " is dead and cannot attack!");
+            return;
+        }
+        if (!target.isAlive()) {
+            System.out.println(name + " cannot attack " + target.getName() + " because target is already dead!");
+            return;
+        }
+
         int attackMod = attack - target.getDefense() + 1;
         int diceCounter = Math.max(1, attackMod);
         boolean success = false;
