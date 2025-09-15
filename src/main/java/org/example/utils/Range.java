@@ -21,8 +21,4 @@ public class Range {
         return rng.nextInt(max - min + 1) + min;
     }
 
-    @Override
-    public String toString() {
-        return min + "-" + max;
-    }
 }

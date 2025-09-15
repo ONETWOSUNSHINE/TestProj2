@@ -5,12 +5,12 @@ import org.example.utils.Range;
 import java.util.Random;
 
 public abstract class Creature {
-    private String name;
-    private int attack;
-    private int defense;
+    private final String name;
+    private final int attack;
+    private final int defense;
     private int hp;
-    private int maxHp;
-    private Range damage;
+    private final int maxHp;
+    private final Range damage;
 
     public Creature(String name, int attack, int defense, int maxHp, Range damage) {
         if (attack < 1 || attack > 30)
@@ -31,48 +31,20 @@ public abstract class Creature {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
     public int getDefense() {
         return defense;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
     }
 
     public int getHp() {
         return hp;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
     public int getMaxHp() {
         return maxHp;
     }
 
-    public void setMaxHp(int maxHp) {
-        this.maxHp = maxHp;
-    }
-
-    public Range getDamage() {
-        return damage;
-    }
-
-    public void setDamage(Range damage) {
-        this.damage = damage;
+    protected void setHp(int hp) {
+        this.hp = hp;
     }
 
     public boolean isAlive() {
@@ -80,11 +52,11 @@ public abstract class Creature {
     }
 
     public void receiveDamage(int dmg) {
-        setHp(Math.max(0, getHp() - dmg));
+        hp = Math.max(0, getHp() - dmg);
     }
 
-    public void toAttack(Creature target, Random rng) {
-        int attackMod = getAttack() - target.getDefense() + 1;
+    public void attack(Creature target, Random rng) {
+        int attackMod = attack - target.getDefense() + 1;
         int diceCounter = Math.max(1, attackMod);
         boolean success = false;
         for (int i = 0; i < diceCounter; i++) {
@@ -96,11 +68,11 @@ public abstract class Creature {
         }
 
         if (success) {
-            int dmg = getDamage().getRandom(rng);
+            int dmg = damage.getRandom(rng);
             target.receiveDamage(dmg);
-            System.out.println(getName() + " hits " + target.getName() + ", dealing " + dmg + " damage!");
+            System.out.println(name + " hits " + target.getName() + ", dealing " + dmg + " damage!");
         } else {
-            System.out.println(getName() + " misses " + target.getName() + "!");
+            System.out.println(name + " misses " + target.getName() + "!");
         }
     }
 

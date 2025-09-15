@@ -19,15 +19,15 @@ public class App
         System.out.println(goblin.getName() + " hp: " + goblin.getHp());
         System.out.println();
         while (hero.isAlive() && goblin.isAlive()) {
-            hero.toAttack(goblin, rng);
+            hero.attack(goblin, rng);
             System.out.println(hero.getName() + " hp: " + hero.getHp());
             System.out.println(goblin.getName() + " hp: " + goblin.getHp());
             if (!goblin.isAlive()) break;
-            goblin.toAttack(hero, rng);
+            goblin.attack(hero, rng);
             System.out.println(hero.getName() + " hp: " + hero.getHp());
             System.out.println(goblin.getName() + " hp: " + goblin.getHp());
             if (hero.getHp() <= 20) {
-                hero.toHeal();
+                hero.heal();
             }
             System.out.println();
         }
